@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+LOGIN_URL = 'login' # ログインしていないときのリダイレクト先
+LOGIN_REDIRECT_URL = 'index' # ログイン後のリダイレクト先
+LOGOUT_REDIRECT_URL = 'index' # ログアウト後のリダイレクト先

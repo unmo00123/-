@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>好きなことをつぶやこう！</h1>
+ <h1>New post</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">つぶやく</button>
+<h1><a href="{% url 'page_under_construction' %}">マイページ</a></h1>
+<a href="{% url 'logout' %}">ログアウト</a>
+</body>
+</html>
