@@ -7,11 +7,12 @@
 </head>
 <body>
 <h1>好きなことをつぶやこう！</h1>
- <h1>New post</h1>
+<i class="fas fa-dove"></i>
+<textarea class="form-control" rows="3"></textarea>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">つぶやく</button>
-<h1><a href="{% url 'page_under_construction' %}">マイページ</a></h1>
+        <p><a href="{% url 'page_under_construction' %}">マイページ</a></p>
 <a href="{% url 'logout' %}">ログアウト</a>
 </body>
 </html>
