@@ -1,6 +1,6 @@
 from datetime import timezone
 from django.shortcuts import render,redirect
-from .models import CreateView
+from .models import CreateView, Post
 
 # Create your views here.
 
@@ -26,9 +26,13 @@ def post_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return redirect('index.html')
+            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+            return render(request, 'blog/index.html', {'posts': posts})
     else:
         form = PostForm()
     return render(request, 'blog/index.html', {'form': form})
+
+
+
 
 

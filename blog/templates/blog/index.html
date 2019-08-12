@@ -12,7 +12,15 @@
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">つぶやく</button>
+        <p>タイムライン</p>
         <p><a href="{% url 'page_under_construction' %}">マイページ</a></p>
+        {% for post in posts %}
+    <div>
+        <p>published: {{ post.published_date }}</p>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}
 <a href="{% url 'logout' %}">ログアウト</a>
 </body>
 </html>
