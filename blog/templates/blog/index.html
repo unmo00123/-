@@ -14,13 +14,19 @@
         <button type="submit" class="save btn btn-default">つぶやく</button>
         <p>タイムライン</p>
         <p><a href="{% url 'page_under_construction' %}">マイページ</a></p>
-        {% for post in posts %}
-    <div>
-        <p>published: {{ post.published_date }}</p>
-        <h1><a href="">{{ post.title }}</a></h1>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-{% endfor %}
+<!--        以下、postsがデータを所持しているかどうかを判定して、条件分岐をさせています。-->
+        {% if posts %}
+<!--        ソースコードを書くときは読みやすさも大事です。インデントを正しく使いましょう-->
+            {% for post in posts %}
+                <div>
+                    <p>published: {{ post.published_date }}</p>
+                    <h1><a href="">{{ post.title }}</a></h1>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>まだ記事がありません</p>
+        {% endif %}
 <a href="{% url 'logout' %}">ログアウト</a>
 </body>
 </html>
