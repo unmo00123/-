@@ -2,11 +2,13 @@
 
 
 from datetime import timezone
-from django.shortcuts import render,redirect
-from .models import CreateView, Post
+from django.shortcuts import render
+from .models import Post, CreateView
+
 
 # Create your views here.
-
+def test(req):
+    return render(req, 'blog/test.html', {})
 def top_page(request):
     return render(request, 'blog/top_page.html', {})
 

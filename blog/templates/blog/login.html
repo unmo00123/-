@@ -6,9 +6,10 @@
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">ログイン</button>
+        <a href=""><button type="submit">ログイン</button></a>
     </form>
 <!--    git commit ”ログインユーザー改修”　ユーザーを作成する画面はDjangoでは別途作成する必要があるのでformタグの外に置きました-->
     <a href="{% url 'blog:create' %}"><button type="button" class="btn btn-outline-info">ユーザー作成</button></a>
+    <a href="{% url 'blog:test '%}">テスト</a>
     {% endblock %}
 <!-- ▲▲▲ git commit ”ログインユーザー改修”　テンプレートの拡張機能を搭載しました　▲▲▲-->
