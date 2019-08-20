@@ -10,7 +10,8 @@ from .models import Post, CreateView
 def test(req):
     return render(req, 'blog/test.html', {})
 def top_page(request):
-    return render(request, 'blog/top_page.html', {})
+    posts = Post.objects.all()
+    return render(request, 'blog/top_page.html', {'posts': posts})
 
 def page_under_construction(request):
     return render(request, 'blog/page_under_construction.html', {})
