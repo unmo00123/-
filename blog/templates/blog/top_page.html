@@ -8,5 +8,18 @@
   <h1><a href="/">つぶやき君にようこそ！</a></h1>
    <a href="{% url 'login'  %}">ログインページ</a>
    <a href="{% url 'blog:page_under_construction'  %}">作者に寄付する</a>
+<!--        以下、postsがデータを所持しているかどうかを判定して、条件分岐をさせています。-->
+        {% if posts %}
+<!--        ソースコードを書くときは読みやすさも大事です。インデントを正しく使いましょう-->
+            {% for post in posts %}
+                <div>
+                    <p>投稿日: {{ post.published_date }}</p>
+                    <h1><a href="">{{ post.title }}</a></h1>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>まだ記事がありません</p>
+        {% endif %}
   </body>
 </html>

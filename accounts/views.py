@@ -1,4 +1,4 @@
-import post
+#import post エラー対応
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
