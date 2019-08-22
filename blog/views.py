@@ -1,14 +1,14 @@
-
-
-
 from datetime import timezone
+from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
-from .models import Post, CreateView
+from django.views.generic import TemplateView
+
+from .models import Post
 
 
 # Create your views here.
-def test(req):
-    return render(req, 'blog/test.html', {})
 def top_page(request):
     posts = Post.objects.all()
     return render(request, 'blog/top_page.html', {'posts': posts})
@@ -23,6 +23,16 @@ def login(request):
 def PostForm(POST):
     pass
 
+class indexView(TemplateView):
+    posts = Post.objects.all()
+    template_name = "blog/index.html"
+
+class loginView(LoginView):
+    form_class = forms.LoginForm
+    template_name = "blog/login.html"
+
+class logoutView(LoginRequiredMixin, LogoutView):
+    template_name = "blog/logout.html"
 
 def post_new(request):
     # 以下のソースの意味は、データがPOSTデータで飛んできたときは、saveメソッドでデータを登録する処理です。
@@ -43,6 +53,7 @@ def post_new(request):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
+            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
             return render(request, 'blog/index.html', {'posts': posts})
     else:
         form = PostForm()
