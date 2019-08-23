@@ -1,3 +1,16 @@
+"""
+エラーの原因は、
+class loginView(LoginView):
+    form_class = forms.LoginForm
+    template_name = "blog/login.html"
+の「form_class = forms.LoginForm」で、インポートしているのがfrom django import formsからのものだと認識をされていた点にあります。
+いわゆる名前の競合が生じておりました。
+これを解消するため、
+from .forms import LoginForm as r
+で　as文を使用して名前の衝突を回避しました。
+
+"""
+
 from datetime import timezone
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,7 +19,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from .models import Post
-
+# LoginFormを「ｒ」という名前でインポートし、名前の衝突を回避。
+from .forms import LoginForm as r
 
 # Create your views here.
 def top_page(request):
@@ -28,7 +42,11 @@ class indexView(TemplateView):
     template_name = "blog/index.html"
 
 class loginView(LoginView):
-    form_class = forms.LoginForm
+    """ 名前衝突を回避するために、以下をコメントアウトし、forms.pyからインポートしてきた
+    LoginFormを使用します。
+      """
+    #form_class = forms.LoginForm
+    form_class = r
     template_name = "blog/login.html"
 
 class logoutView(LoginRequiredMixin, LogoutView):
