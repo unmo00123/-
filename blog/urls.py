@@ -11,4 +11,6 @@ urlpatterns = [
     path('index/',views.indexView.as_view(), name="index"),
     path('login/', views.loginView.as_view(), name="login"),
     path('logout/', views.logoutView.as_view(), name="logout"),
+    # like post
+    path('like', views.like, name='like'),
 ]

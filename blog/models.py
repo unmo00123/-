@@ -21,8 +21,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-class CreateView(CreateView):
-    form_class = UserCreationForm
-    template_name = "blog/create.html"
-    success_url = reverse_lazy("login")
 
+class Like(models.Model):
+    post_id = models.IntegerField()
+    user_id = models.IntegerField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
