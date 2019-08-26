@@ -16,6 +16,18 @@
                     <p>投稿日: {{ post.published_date }}</p>
                     <h1><a href="">{{ post.title }}</a></h1>
                     <p>{{ post.text|linebreaksbr }}</p>
+
+                    <form action="{% url 'blog:like'  %}" method="post">
+                        {% csrf_token %}
+<!--                        user_id, post_id-->
+                        <input type="hidden" value="{{ post.id }}" name="post_id">
+                        <input type="hidden" value="{{ post.author_id }}" name="user_id">
+                        {% if like %}
+                            <p><input type="submit" value="いいね解除"> </p>
+                        {% else %}
+                            <p><input type="submit" value="いいね"> </p>
+                        {% endif %}
+                    </form>
                 </div>
             {% endfor %}
         {% else %}
