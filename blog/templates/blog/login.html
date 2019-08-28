@@ -2,7 +2,8 @@
 <!--1.　まずは親テンプレートを指定します。-->
 {% extends 'blog/base.html' %}
 <!--2. 次に親テンプレートに組み込むブロックを記述します-->
-    {%  block LoginForm %}
+<!--拡張元のbase.htmlとブロック名が異なるので真っ白の画面になってしました。こちらを対応-->
+    {%  block loginForm %}
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}

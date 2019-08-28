@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-app_name= "blog"
+"""　ここのURLconfの名前はアプリケーションのblogではないので以下コメントアウト　"""
+# app_name= "blog"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
