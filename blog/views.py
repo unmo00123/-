@@ -39,9 +39,10 @@ def page_under_construction(request):
 def PostForm(POST):
     pass
 
-class indexView(TemplateView):
+def indexView(request):
     posts = Post.objects.all()
-    template_name = "blog/index.html"
+    like = Like.objects.all().filter(post_id=request.user.id)
+    return render(request, 'blog/index.html', {'posts': posts, 'like': like})
 
 class loginView(LoginView):
     """ 名前衝突を回避するために、以下をコメントアウトし、forms.pyからインポートしてきた
@@ -99,4 +100,4 @@ def like(requests):
     s.save()
     print(requests.POST['user_id'])
     print(requests.POST['post_id'])
-    return redirect('/')
+    return redirect('index/')

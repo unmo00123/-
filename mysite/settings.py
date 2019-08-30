@@ -125,6 +125,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+app_name = 'blog'
+
 LOGIN_URL = 'login' # ログインしていないときのリダイレクト先
-LOGIN_REDIRECT_URL = 'index' # ログイン後のリダイレクト先
+LOGIN_REDIRECT_URL = 'blog:index' # ログイン後のリダイレクト先
 LOGOUT_REDIRECT_URL = 'index' # ログアウト後のリダイレクト先

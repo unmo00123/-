@@ -8,30 +8,5 @@
   <h1><a href="/">つぶやき君にようこそ！</a></h1>
    <a href="{% url 'blog:login'  %}">ログインページ</a>
    <a href="{% url 'blog:page_under_construction'  %}">作者に寄付する</a>
-<!--        以下、postsがデータを所持しているかどうかを判定して、条件分岐をさせています。-->
-        {% if posts %}
-<!--        ソースコードを書くときは読みやすさも大事です。インデントを正しく使いましょう-->
-            {% for post in posts %}
-                <div>
-                    <p>投稿日: {{ post.published_date }}</p>
-                    <h1><a href="">{{ post.title }}</a></h1>
-                    <p>{{ post.text|linebreaksbr }}</p>
-
-                    <form action="{% url 'blog:like'  %}" method="post">
-                        {% csrf_token %}
-<!--                        user_id, post_id-->
-                        <input type="hidden" value="{{ post.id }}" name="post_id">
-                        <input type="hidden" value="{{ post.author_id }}" name="user_id">
-                        {% if like %}
-                            <p><input type="submit" value="いいね解除"> </p>
-                        {% else %}
-                            <p><input type="submit" value="いいね"> </p>
-                        {% endif %}
-                    </form>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>まだ記事がありません</p>
-        {% endif %}
   </body>
 </html>
