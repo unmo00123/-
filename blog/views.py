@@ -72,10 +72,11 @@ def index(request):
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView as cf
 from django.urls import reverse_lazy
+
 class CreateView(cf):
     form_class = UserCreationForm
     template_name = "blog/create.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("blog:login")
 
 
 @login_required
