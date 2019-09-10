@@ -8,31 +8,29 @@
 <body>
     <h1>好きなことをつぶやこう！</h1>
     <i class="fas fa-dove"></i>
-    <textarea class="form-control" rows="3"></textarea>
-    <form method="POST" class="post-form">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">つぶやく</button>
     </form>
-    <button type="submit" class="save btn btn-default">つぶやく</button>
     <p>タイムライン</p>
     <p><a href="{% url 'blog:page_under_construction' %}">マイページ</a></p>
     <!--        以下、postsがデータを所持しているかどうかを判定して、条件分岐をさせています。-->
     {% if posts %}
         {% for post in posts %}
             <div>
-                <p>投稿日: {{ post.published_date }}</p>
+                <p>投稿日: {{ post.created_date }}</p>
                 <h1><a href="">{{ post.title }}</a></h1>
                 <p>{{ post.text|linebreaksbr }}</p>
 
-                <form action="{% url 'blog:like'  %}" method="post">
+                <form action="/like" method="post">
                         {% csrf_token %}
                         <input type="hidden" value="{{ post.id }}" name="post_id">
                         <input type="hidden" value="{{ post.author_id }}" name="user_id">
-                        {% if like %}
-                            <p><input type="submit"  value="いいね解除"> </p>
-                        {% else %}
-                            <p><input type="submit"  value="いいね"></p>
-                        {% endif %}
+                            {% if like %}
+                                <p><input type="submit"  value="お気に入り"></p>
+                            {% else %}
+                                <p><input type="submit"  value="お気に入り解除"></p>
+                            {% endif %}
                 </form>
             </div>
         {% endfor %}
