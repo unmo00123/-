@@ -14,24 +14,18 @@ from django.contrib.auth.decorators import login_required
 
 app_name='blog'
 
-from datetime import timezone
-from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from .models import Post, Like
 # LoginFormを「ｒ」という名前でインポートし、名前の衝突を回避。
 from .forms import LoginForm as r
-from django.contrib.auth.forms import UserCreationForm
 from .forms import PostForm
 
 # Create your views here.
 def top_page(request):
-    posts = Post.objects.all()
-    like = Like.objects.all().filter(post_id=request.user.id)
-    return render(request, 'blog/top_page.html', {'posts': posts, 'like': like})
+    return render(request, 'blog/top_page.html', {})
 
 def page_under_construction(request):
     return render(request, 'blog/page_under_construction.html', {})
@@ -64,10 +58,8 @@ def index(request):
         form = PostForm()
 
     posts = Post.objects.order_by('-created_date')[:5]
-    like = Like.objects.all().filter(post_id= request.user.id)
-    return render(request,'blog/index.html',{'posts': posts,
-                                         'like': like,
-                                        'form':form} )
+    like_count = Like.objects.count()
+    return render(request,'blog/index.html', dict(posts=posts, like_count=like_count, form=form))
 
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView as cf
@@ -81,11 +73,7 @@ class CreateView(cf):
 
 @login_required
 def like(requests):
-    s = Like(
-        post_id=requests.POST['post_id'],
-        user_id=requests.POST['user_id'],
-    )
-    s.save()
-    print(requests.POST['user_id'])
-    print(requests.POST['post_id'])
-    return redirect('index/')
+    if requests.method == 'POST':
+        Like.objects.create()
+
+    return redirect('blog:index')

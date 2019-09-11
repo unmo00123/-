@@ -21,22 +21,16 @@
                 <p>投稿日: {{ post.created_date }}</p>
                 <h1><a href="">{{ post.title }}</a></h1>
                 <p>{{ post.text|linebreaksbr }}</p>
-
+             </div>
                 <form action="/like" method="post">
                         {% csrf_token %}
                         <input type="hidden" value="{{ post.id }}" name="post_id">
                         <input type="hidden" value="{{ post.author_id }}" name="user_id">
-                            {% if like %}
-                                <p><input type="submit"  value="お気に入り"></p>
-                            {% else %}
-                                <p><input type="submit"  value="お気に入り解除"></p>
-                            {% endif %}
+                       <input type="submit" name="like" value="いいね">（この投稿に{{ like_count }} いいねされました。）
                 </form>
-            </div>
         {% endfor %}
     {% else %}
         <p>まだ記事がありません</p>
     {% endif %}
     <a href="{% url 'blog:top_page' %}">ログアウト</a>
-
 </body>

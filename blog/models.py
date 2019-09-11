@@ -1,6 +1,3 @@
-from django.views.generic import TemplateView,CreateView
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
 from django.db import models
 from django.utils import timezone
 
@@ -23,7 +20,8 @@ class Post(models.Model):
 
 
 class Like(models.Model):
-    post_id = models.IntegerField()
-    user_id = models.IntegerField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'like'
+        verbose_name = verbose_name_plural = 'いいね'
