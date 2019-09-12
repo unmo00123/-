@@ -19,9 +19,14 @@ class Post(models.Model):
         return self.title
 
 
-class Like(models.Model):
-    created_date = models.DateTimeField(default=timezone.now)
+# class Like(models.Model):
+#     created_date = models.DateTimeField(default=timezone.now)
+#
+#     class Meta:
+#         db_table = 'like'
+#         verbose_name = verbose_name_plural = 'いいね'
 
-    class Meta:
-        db_table = 'like'
-        verbose_name = verbose_name_plural = 'いいね'
+class LikePost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)
+    created_date = models.DateTimeField(default=timezone.now)

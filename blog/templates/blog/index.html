@@ -15,22 +15,23 @@
     <p>タイムライン</p>
     <p><a href="{% url 'blog:page_under_construction' %}">マイページ</a></p>
     <!--        以下、postsがデータを所持しているかどうかを判定して、条件分岐をさせています。-->
-    {% if posts %}
+
         {% for post in posts %}
+        <div style="border: 1px solid;">
             <div>
                 <p>投稿日: {{ post.created_date }}</p>
                 <h1><a href="">{{ post.title }}</a></h1>
                 <p>{{ post.text|linebreaksbr }}</p>
              </div>
+            <br>
                 <form action="/like" method="post">
                         {% csrf_token %}
                         <input type="hidden" value="{{ post.id }}" name="post_id">
                         <input type="hidden" value="{{ post.author_id }}" name="user_id">
-                       <input type="submit" name="like" value="いいね">（この投稿に{{ like_count }} いいねされました。）
+                       <input type="submit" name="like" value="いいね">（この投稿に{{ post.likepost__count }} 件いいねされました。）
                 </form>
+        </div>
         {% endfor %}
-    {% else %}
-        <p>まだ記事がありません</p>
-    {% endif %}
+
     <a href="{% url 'blog:top_page' %}">ログアウト</a>
 </body>
